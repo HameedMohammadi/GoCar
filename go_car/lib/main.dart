@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, unused_import
 
 import 'package:flutter/material.dart';
 import 'package:go_car/screens/login_signup.dart';
@@ -7,6 +7,7 @@ import 'package:go_car/screens/signupPage.dart';
 import 'package:go_car/screens/home.dart';
 import 'package:go_car/utilities/routes.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:go_car/widgets/theme.dart';
 
 void main() {
   runApp(MyApp());
@@ -18,9 +19,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.light,
-      theme: ThemeData(
-          primarySwatch: Colors.deepPurple,
-          fontFamily: GoogleFonts.lato().fontFamily),
+      theme: mytheme.lighttheme(context),
       routes: {
         MyRoutes.mainRoute: (context) => Login(),
         //MyRoutes.mainRoute: (context) => login_signup(),
