@@ -1,16 +1,22 @@
-// ignore_for_file: camel_case_types, unused_import, use_key_in_widget_constructors
+// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, use_key_in_widget_constructors, camel_case_types
 
-import 'package:go_car/utilities/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:go_car/widgets/drawer.dart';
 
-class home extends StatefulWidget {
-  @override
-  State<home> createState() => _homeState();
-}
-
-class _homeState extends State<home> {
+class home extends StatelessWidget {
+  final days = 30;
+  final name = "Ammad";
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Catalog App"),
+      ),
+      body: Center(
+          child: Container(
+        child: Text("Welcome to $days days of flutter by $name"),
+      )),
+      drawer: mydrawer(),
+    );
   }
 }
