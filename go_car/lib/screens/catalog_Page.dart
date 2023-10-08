@@ -5,7 +5,7 @@ import 'package:go_car/models/catalog.dart';
 import 'package:go_car/widgets/carview.dart';
 import 'package:go_car/widgets/drawer.dart';
 
-class HomePage extends StatelessWidget {
+class catalog_page extends StatelessWidget {
   final days = 30;
   final name = "Ammad";
   @override

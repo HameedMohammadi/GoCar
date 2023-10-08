@@ -12,7 +12,22 @@ class catalogmodel {
         year: 2017,
         color: "#000000",
         price: 2000,
-        imageURl: "assets/images/toyota_corolla.png")
+        imageURl: "assets/images/toyota_corolla.png",
+        isRotated: true,
+        carRating: 5),
+    items(
+        model: "i30 N",
+        company: "Hyundai",
+        number: "LES 499",
+        carID: 002,
+        carType: "Sport",
+        current_location: "Garage",
+        year: 2021,
+        color: "#77C3FC",
+        price: 4000,
+        imageURl: "assets/images/i30n.png",
+        isRotated: false,
+        carRating: 5)
   };
 }
 
@@ -27,16 +42,21 @@ class items {
   final String color;
   final num price;
   final String imageURl;
+  final bool isRotated;
+  final num carRating;
 
-  items(
-      {required this.model,
-      required this.company,
-      required this.number,
-      required this.carID,
-      required this.carType,
-      required this.current_location,
-      required this.year,
-      required this.color,
-      required this.price,
-      required this.imageURl});
+  items({
+    required this.model,
+    required this.company,
+    required this.number,
+    required this.carID,
+    required this.carType,
+    required this.current_location,
+    required this.year,
+    required this.color,
+    required this.price,
+    required this.imageURl,
+    required this.isRotated,
+    required this.carRating,
+  });
 }

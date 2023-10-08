@@ -13,5 +13,9 @@ class mytheme {
             iconTheme: IconThemeData(color: Colors.black),
             titleTextStyle: Theme.of(context).textTheme.headline6,
             centerTitle: true),
+        textTheme: TextTheme(
+          bodyText2: GoogleFonts.poppins(color: Colors.black),
+        ),
+        cardColor: Colors.white,
       );
 }
