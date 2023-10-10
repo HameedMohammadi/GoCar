@@ -1,34 +1,7 @@
 // ignore_for_file: non_constant_identifier_names, camel_case_types
 
 class catalogmodel {
-  static final product = {
-    items(
-        model: "Corolla",
-        company: "Toyota",
-        number: "LES 302",
-        carID: 001,
-        carType: "Sedan",
-        current_location: "Garage",
-        year: 2017,
-        color: "#000000",
-        price: 2000,
-        imageURl: "assets/images/toyota_corolla.png",
-        isRotated: true,
-        carRating: 5),
-    items(
-        model: "i30 N",
-        company: "Hyundai",
-        number: "LES 499",
-        carID: 002,
-        carType: "Sport",
-        current_location: "Garage",
-        year: 2021,
-        color: "#77C3FC",
-        price: 4000,
-        imageURl: "assets/images/i30n.png",
-        isRotated: false,
-        carRating: 5)
-  };
+  static List<items> product = [];
 }
 
 class items {
@@ -59,4 +32,33 @@ class items {
     required this.isRotated,
     required this.carRating,
   });
+  factory items.fromMap(Map<String, dynamic> map) {
+    return items(
+        model: map["model"],
+        company: map["company"],
+        number: map["number"],
+        carID: map["carID"],
+        carType: map["carType"],
+        current_location: map["current_location"],
+        year: map["year"],
+        color: map["color"],
+        price: map["price"],
+        imageURl: map["imageURL"],
+        isRotated: map["isRotated"],
+        carRating: map["carRating"]);
+  }
+  toMap() => {
+        "model": model,
+        "company": company,
+        "number": number,
+        "carID": carID,
+        "carType": carType,
+        "current_location": current_location,
+        "year": year,
+        "color": color,
+        "price": price,
+        "imageURL": imageURl,
+        "isRotated": isRotated,
+        "carRating": carRating
+      };
 }

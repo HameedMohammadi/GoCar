@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, unused_import
 
 import 'package:flutter/material.dart';
+import 'package:go_car/screens/catalog_Page.dart';
 import 'package:go_car/screens/login_signup.dart';
 import 'package:go_car/screens/loginPage.dart';
 import 'package:go_car/screens/signupPage.dart';
@@ -18,13 +19,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.light,
       theme: mytheme.lighttheme(context),
       routes: {
         MyRoutes.mainRoute: (context) => Login(),
         //MyRoutes.mainRoute: (context) => login_signup(),
         MyRoutes.signupRoute: (context) => signup(),
-        MyRoutes.homeRoute: (context) => home()
+        MyRoutes.homeRoute: (context) => home(),
+        MyRoutes.catalogRoute: (context) => catalog_page()
       },
     );
   }

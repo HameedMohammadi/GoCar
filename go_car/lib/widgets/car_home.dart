@@ -99,7 +99,7 @@ Padding buildCar(int i, Size size, ThemeData themeData) {
                   Row(
                     children: [
                       Text(
-                        '${catalogmodel.product.toList()[i].price}\Rs.',
+                        '${catalogmodel.product.toList()[i].price}',
                         style: GoogleFonts.poppins(
                           color: themeData.secondaryHeaderColor,
                           fontSize: size.width * 0.06,

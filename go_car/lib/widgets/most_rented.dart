@@ -3,10 +3,10 @@ import 'package:go_car/widgets/car_home.dart';
 import 'package:go_car/widgets/category.dart';
 import 'package:flutter/material.dart';
 
-Widget buildMostRented(Size size, ThemeData themeData) {
+Widget buildMostRented(BuildContext context, size, ThemeData themeData) {
   return Column(
     children: [
-      buildCategory('Most Rented', size, themeData),
+      buildCategory(context, 'Most Rented', size, themeData),
       Padding(
         padding: EdgeInsets.only(
           top: size.height * 0.015,

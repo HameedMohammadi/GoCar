@@ -1,0 +1,32 @@
+{
+    "products" : [
+        {
+        "model": "Civic X",
+        "company": "Honda",
+        "number": "LES 302",
+        "carID": 1,
+        "carType": "Sedan",
+        "current_location": "Garage",
+        "year": 2017,
+        "color": "#000000",
+        "price": 2000,
+        "imageURl": "assets/images/civic.png",
+        "isRotated": true,
+        "carRating": 5
+        },
+        {
+        "model": "i30 N",
+        "company": "Hyundai",
+        "number": "LES 499",
+        "carID": 2,
+        "carType": "Sport",
+        "current_location": "Garage",
+        "year": 2021,
+        "color": "#77C3FC",
+        "price": 4000,
+        "imageURl": "assets/images/i30n.png",
+        "isRotated": false,
+        "carRating": 5
+        }
+    ]
+}
