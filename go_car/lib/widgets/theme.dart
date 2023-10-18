@@ -20,4 +20,5 @@ class mytheme {
         ),
         cardColor: Colors.white,
       );
+  static Color bluish = Color(0xff3b22a1);
 }

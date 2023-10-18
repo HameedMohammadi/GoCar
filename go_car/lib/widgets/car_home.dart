@@ -1,14 +1,16 @@
 // ignore_for_file: unused_import
 
+import 'dart:js';
 import 'dart:math';
 import 'package:go_car/models/catalog.dart';
 import 'package:go_car/screens/catalog_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_car/screens/details.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:unicons/unicons.dart';
 
-Padding buildCar(int i, Size size, ThemeData themeData) {
+Padding buildCar(int i, Size size, ThemeData themeData, BuildContext context) {
   return Padding(
     padding: EdgeInsets.only(
       right: size.width * 0.03,
@@ -32,17 +34,11 @@ Padding buildCar(int i, Size size, ThemeData themeData) {
             ),
             child: InkWell(
               onTap: () {
-                //Get.to(DetailsPage(
-                //carImage: cars[i]['carImage'],
-                //carClass: cars[i]['carClass'],
-                //carName: cars[i]['carName'],
-                //carPower: cars[i]['carPower'],
-                //people: cars[i]['people'],
-                //bags: cars[i]['bags'],
-                //carPrice: cars[i]['carPrice'],
-                //carRating: cars[i]['carRating'],
-                //isRotated: cars[i]['isRotated'],
-                //));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            DetailsPage(catalog: catalogmodel.product[i])));
               },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

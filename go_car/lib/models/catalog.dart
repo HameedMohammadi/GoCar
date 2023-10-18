@@ -17,35 +17,43 @@ class items {
   final String imageURl;
   final bool isRotated;
   final num carRating;
-
-  items({
-    required this.model,
-    required this.company,
-    required this.number,
-    required this.carID,
-    required this.carType,
-    required this.current_location,
-    required this.year,
-    required this.color,
-    required this.price,
-    required this.imageURl,
-    required this.isRotated,
-    required this.carRating,
-  });
+  final num carpower;
+  final String people;
+  final String bags;
+  items(
+      {required this.model,
+      required this.company,
+      required this.number,
+      required this.carID,
+      required this.carType,
+      required this.current_location,
+      required this.year,
+      required this.color,
+      required this.price,
+      required this.imageURl,
+      required this.isRotated,
+      required this.carRating,
+      required this.carpower,
+      required this.people,
+      required this.bags});
   factory items.fromMap(Map<String, dynamic> map) {
     return items(
-        model: map["model"],
-        company: map["company"],
-        number: map["number"],
-        carID: map["carID"],
-        carType: map["carType"],
-        current_location: map["current_location"],
-        year: map["year"],
-        color: map["color"],
-        price: map["price"],
-        imageURl: map["imageURL"],
-        isRotated: map["isRotated"],
-        carRating: map["carRating"]);
+      model: map["model"],
+      company: map["company"],
+      number: map["number"],
+      carID: map["carID"],
+      carType: map["carType"],
+      current_location: map["current_location"],
+      year: map["year"],
+      color: map["color"],
+      price: map["price"],
+      imageURl: map["imageURl"],
+      isRotated: map["isRotated"],
+      carRating: map["carRating"],
+      carpower: map["carpower"],
+      people: map["people"],
+      bags: map["bags"],
+    );
   }
   toMap() => {
         "model": model,
@@ -59,6 +67,9 @@ class items {
         "price": price,
         "imageURL": imageURl,
         "isRotated": isRotated,
-        "carRating": carRating
+        "carRating": carRating,
+        "carpower": carpower,
+        "people": people,
+        "bags": bags
       };
 }

@@ -1,5 +1,9 @@
-// ignore_for_file: library_private_types_in_public_api, camel_case_types
+// ignore_for_file: library_private_types_in_public_api, camel_case_types, non_constant_identifier_names, unused_import, unnecessary_import
 
+import 'dart:convert';
+
+import 'package:flutter/services.dart';
+import 'package:go_car/screens/catalog_Page.dart';
 import 'package:go_car/widgets/bottom_nav_bar.dart';
 
 import 'package:go_car/widgets/most_rented.dart';
@@ -8,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:go_car/widgets/drawer.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:unicons/unicons.dart';
+import 'package:go_car/models/catalog.dart';
 
 class home extends StatefulWidget {
   const home({Key? key}) : super(key: key);
@@ -23,22 +28,26 @@ class _HomePageState extends State<home> {
     ThemeData themeData = Theme.of(context);
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(40.0), //appbar size
+        preferredSize: const Size.fromHeight(40.0),
         child: AppBar(
           bottomOpacity: 0.0,
           elevation: 0.0,
           shadowColor: Colors.transparent,
-          backgroundColor: themeData.colorScheme.background,
+          backgroundColor: const Color(0xfff8f8f8),
           titleSpacing: 0,
           leadingWidth: size.width * 0.15,
-          title: const Text("GoCar"),
+          title: Image.asset(
+            "assets/images/mainlogo.png",
+            height: size.height * 0.06,
+            width: size.width * 0.35,
+          ),
           centerTitle: true,
         ),
       ),
       extendBody: true,
       extendBodyBehindAppBar: true,
       bottomNavigationBar: buildBottomNavBar(1, size, themeData),
-      backgroundColor: themeData.colorScheme.background,
+      backgroundColor: const Color(0xfff8f8f8),
       body: SafeArea(
         child: ListView(
           children: [

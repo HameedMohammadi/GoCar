@@ -38,6 +38,7 @@ dependencies:
   google_fonts: ^6.1.0
   unicons: ^2.1.1  
   get: ^4.1.4  
+  velocity_x: ^4.1.1
 
 
 

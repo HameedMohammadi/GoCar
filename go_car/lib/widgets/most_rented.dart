@@ -22,11 +22,7 @@ Widget buildMostRented(BuildContext context, size, ThemeData themeData) {
             scrollDirection: Axis.horizontal,
             itemCount: catalogmodel.product.length,
             itemBuilder: (context, i) {
-              return buildCar(
-                i,
-                size,
-                themeData,
-              );
+              return buildCar(i, size, themeData, context);
             },
           ),
         ),
