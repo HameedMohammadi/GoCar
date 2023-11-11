@@ -3,7 +3,6 @@ const carSchema = mongoose.Schema({
     model : String,
     company : String,
     number : String,
-    carID : Number,
     carType : String,
     current_location : String,
     year : Number,
@@ -18,3 +17,6 @@ const carSchema = mongoose.Schema({
 } , {timestamps:true});
 
 module.exports = mongoose.model('Car' , carSchema);
+
+
+

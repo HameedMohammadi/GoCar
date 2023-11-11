@@ -8,7 +8,6 @@ class items {
   final String model;
   final String company;
   final String number;
-  final num carID;
   final String carType;
   final String current_location;
   final num year;
@@ -24,7 +23,6 @@ class items {
       {required this.model,
       required this.company,
       required this.number,
-      required this.carID,
       required this.carType,
       required this.current_location,
       required this.year,
@@ -41,7 +39,6 @@ class items {
       model: map["model"],
       company: map["company"],
       number: map["number"],
-      carID: map["carID"],
       carType: map["carType"],
       current_location: map["current_location"],
       year: map["year"],
@@ -59,7 +56,6 @@ class items {
         "model": model,
         "company": company,
         "number": number,
-        "carID": carID,
         "carType": carType,
         "current_location": current_location,
         "year": year,
