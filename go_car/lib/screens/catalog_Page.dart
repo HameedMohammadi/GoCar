@@ -4,6 +4,8 @@ import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:unicons/unicons.dart';
+
 import 'package:go_car/models/catalog.dart';
 import 'package:go_car/widgets/carview.dart';
 import 'package:go_car/widgets/drawer.dart';
@@ -25,14 +27,35 @@ class _catalog_pageState extends State<catalog_page> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size; //check the size of device
+    ThemeData themeData = Theme.of(context);
+
     return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(40.0), //appbar size
+        child: AppBar(
+          bottomOpacity: 0.0,
+          elevation: 0.0,
+          shadowColor: Colors.transparent,
+          backgroundColor: const Color(0xfff8f8f8),
+          titleSpacing: 0,
+          leadingWidth: size.width * 0.15,
+          title: Image.asset(
+            "assets/images/mainlogo.png",
+            height: size.height * 0.06,
+            width: size.width * 0.35,
+          ),
+          centerTitle: true,
+        ),
+      ),
+      extendBody: true,
+      extendBodyBehindAppBar: true,
       body: SafeArea(
         child: Container(
           padding: Vx.m32,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              "GoCar".text.xl5.bold.color(mytheme.bluish).make(),
               if (catalogmodel.product != null &&
                   catalogmodel.product.isNotEmpty)
                 Cataloglist().expand()
@@ -42,6 +65,7 @@ class _catalog_pageState extends State<catalog_page> {
           ),
         ),
       ),
+      drawer: mydrawer(),
     );
   }
 }

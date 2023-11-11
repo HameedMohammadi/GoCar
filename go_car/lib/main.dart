@@ -14,6 +14,7 @@ import 'package:go_car/utilities/routes.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:go_car/widgets/theme.dart';
 import 'package:go_car/models/catalog.dart';
+import 'package:get/get.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +25,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: mytheme.lighttheme(context),
       routes: {

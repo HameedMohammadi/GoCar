@@ -1,4 +1,7 @@
+// ignore_for_file: prefer_const_constructors, avoid_print
+
 import 'dart:math';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:go_car/widgets/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:go_car/models/catalog.dart';
@@ -38,20 +41,28 @@ class Catalogitem extends StatelessWidget {
                 catalog.model.text.textStyle(context.captionStyle).make(),
               ],
             ),
-            ButtonBar(
-              alignment: MainAxisAlignment.spaceBetween,
-              buttonPadding: Vx.mH12,
+            SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                catalog.price.text.make(),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: "Book".text.make(),
-                  style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStatePropertyAll(mytheme.bluish)),
+                RatingBar(
+                  initialRating: catalog.carRating.toDouble(),
+                  minRating: 1,
+                  direction: Axis.horizontal,
+                  allowHalfRating: true,
+                  itemCount: 5,
+                  itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
+                  ratingWidget: RatingWidget(
+                      full: Icon(Icons.star, color: Colors.amber),
+                      half: Icon(Icons.star_half, color: Colors.amber),
+                      empty: Icon(Icons.star_border, color: Colors.amber)),
+                  onRatingUpdate: (rating) {
+                    print(rating);
+                  },
+                  itemSize: 16.0,
                 )
               ],
-            ).pOnly(left: 2.0)
+            )
           ],
         ))
       ],
