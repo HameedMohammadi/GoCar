@@ -11,7 +11,17 @@ async function createCar (req ,res) {
         res.status(500).json({error : error})
     }
 }
+async function getAllcars (req,res) {
+    try{
+        const cards = await Car.find();
+        res.json(cards);
+    }
+    catch (err) {
+        res.status(500).json({error : err.message});
+    }
+}
 
 module.exports = {
-    createCar
+    createCar,
+    getAllcars
 }

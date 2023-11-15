@@ -1,7 +1,7 @@
-// ignore_for_file: prefer_const_constructors, unused_import, non_constant_identifier_names
+// ignore_for_file: prefer_const_constructors, unused_import, non_constant_identifier_names, avoid_print, prefer_const_declarations
 
 import 'dart:convert';
-
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_car/screens/catalog_Page.dart';
@@ -40,10 +40,19 @@ class MyApp extends StatelessWidget {
 }
 
 Future<void> loadData() async {
-  final catalog_json = await rootBundle.loadString("assets/files/catalog.json");
-  final decodeData = jsonDecode(catalog_json);
-  var productsData = decodeData["products"];
-  catalogmodel.product = List.from(productsData)
-      .map<items>((item) => items.fromMap(item))
-      .toList();
+  try {
+    final String baseURL = "http://localhost:3007/api/car";
+
+    final response = await http.get(Uri.parse(baseURL));
+
+    if (response.statusCode == 200) {
+      final List<dynamic> data = json.decode(response.body);
+      catalogmodel.product =
+          List.from(data).map<items>((item) => items.fromMap(item)).toList();
+    } else {
+      print('Failed to load data: ${response.statusCode}');
+    }
+  } catch (e) {
+    print('Error loading data: $e');
+  }
 }
