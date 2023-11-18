@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api, camel_case_types, use_key_in_widget_constructors, unused_local_variable
+// ignore_for_file: library_private_types_in_public_api, camel_case_types, use_key_in_widget_constructors, unused_local_variable, prefer_const_constructors
 
 import 'dart:math';
 
@@ -25,6 +25,7 @@ class _DetailsPageState extends State<DetailsPage> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size; //check the size of device
     ThemeData themeData = Theme.of(context);
+    bool isAvailable = widget.catalog.availabilty;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(40.0), //appbar size
@@ -292,7 +293,7 @@ class _DetailsPageState extends State<DetailsPage> {
                       ),
                     ],
                   ),
-                  buildSelectButton(size),
+                  buildSelectButton(size, isAvailable, context),
                 ],
               ),
             ),
@@ -366,7 +367,7 @@ class _DetailsPageState extends State<DetailsPage> {
   }
 }
 
-Align buildSelectButton(Size size) {
+Align buildSelectButton(Size size, bool isAvailable, BuildContext context) {
   return Align(
     alignment: Alignment.bottomCenter,
     child: Padding(
@@ -378,16 +379,37 @@ Align buildSelectButton(Size size) {
         width: size.width,
         child: InkWell(
           onTap: () {
-            //TODO: add select action
+            if (isAvailable) {
+            } else {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text("Car not Available"),
+                    content: Text("Car is already Rented"),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text('OK'),
+                      )
+                    ],
+                  );
+                },
+              );
+            }
           },
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              color: const Color(0xff3b22a1),
+              color: isAvailable
+                  ? const Color(0xff3b22a1)
+                  : Colors.grey.withOpacity(0.5),
             ),
-            child: Align(
+            child: Center(
               child: Text(
-                'Select',
+                'Book',
                 textAlign: TextAlign.center,
                 style: GoogleFonts.lato(
                   fontSize: size.height * 0.025,

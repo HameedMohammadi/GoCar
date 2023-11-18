@@ -41,6 +41,8 @@ dependencies:
   velocity_x: ^4.1.1
   flutter_rating_bar: ^4.0.0
   http: ^1.1.0
+  cached_network_image: ^3.1.0
+
 
 
 

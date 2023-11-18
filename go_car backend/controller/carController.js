@@ -20,8 +20,25 @@ async function getAllcars (req,res) {
         res.status(500).json({error : err.message});
     }
 }
+async function updateAvailabilty(req,res) {
+    const { id } = req.params;
+    const { availabilty } = req.body;
+    try {
+        const car = await Car.findById(id);
+        if (!car) {
+            return res.status(404).json({ error: 'Car not found' });
+        }
+    car.availabilty = availabilty;
+    await car.save();
+    res.json({ message: 'Car availability updated successfully', car });
+    }
+    catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+}   
 
 module.exports = {
     createCar,
-    getAllcars
+    getAllcars,
+    updateAvailabilty
 }

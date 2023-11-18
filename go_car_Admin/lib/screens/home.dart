@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:rest_apis/controller/api.dart';
+import 'RentCar.dart';
 
 class HomeScreen extends StatelessWidget {
   api myApi = api();
@@ -67,12 +68,14 @@ class HomeScreen extends StatelessWidget {
                         "year": yearcontroller.text,
                         "color": colorcontroller.text,
                         "price": pricecontroller.text,
-                        "imageURL": imageURLcontroller.text,
+                        "imageURl": imageURLcontroller.text,
                         "isRotated": isRotatedcontroller.text,
                         "carRating": carRatingcontroller.text,
                         "carpower": carpowercontroller.text,
                         "people": peoplecontroller.text,
-                        "bags": bagscontroller.text
+                        "bags": bagscontroller.text,
+                        "availabilty": true,
+                        "status": true
                       };
                       myApi.addCar(data);
                     },
@@ -89,6 +92,18 @@ class HomeScreen extends StatelessWidget {
                       backgroundColor: Colors.deepPurple,
                     ),
                     child: const Text('Show All'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => RentCar()),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.deepPurple,
+                    ),
+                    child: const Text('Rent'),
                   ),
                 ],
               ),
