@@ -19,7 +19,7 @@ class items {
   final num carpower;
   final String people;
   final String bags;
-  final bool availabilty;
+  final bool avail;
   final bool status;
   items(
       {required this.model,
@@ -36,7 +36,7 @@ class items {
       required this.carpower,
       required this.people,
       required this.bags,
-      required this.availabilty,
+      required this.avail,
       required this.status});
   factory items.fromMap(Map<String, dynamic> map) {
     return items(
@@ -54,7 +54,7 @@ class items {
         carpower: map["carpower"],
         people: map["people"],
         bags: map["bags"],
-        availabilty: map["availabilty"],
+        avail: map["avail"],
         status: map["status"]);
   }
   toMap() => {
@@ -72,7 +72,7 @@ class items {
         "carpower": carpower,
         "people": people,
         "bags": bags,
-        "availabilty": availabilty,
+        "avail": avail,
         "status": status
       };
 }

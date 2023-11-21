@@ -25,7 +25,7 @@ class _DetailsPageState extends State<DetailsPage> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size; //check the size of device
     ThemeData themeData = Theme.of(context);
-    bool isAvailable = widget.catalog.availabilty;
+    bool isAvailable = widget.catalog.avail;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(40.0), //appbar size

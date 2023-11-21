@@ -15,7 +15,7 @@ class car {
   final num? carpower;
   final String? people;
   final String? bags;
-  final bool? availabilty;
+  final bool? avail;
   final bool? status;
   car(
       {this.model,
@@ -32,6 +32,6 @@ class car {
       this.carpower,
       this.people,
       this.bags,
-      this.availabilty,
+      this.avail,
       this.status});
 }

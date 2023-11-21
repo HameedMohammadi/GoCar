@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, library_private_types_in_public_api, use_key_in_widget_constructors
+// ignore_for_file: prefer_const_constructors, library_private_types_in_public_api, use_key_in_widget_constructors, avoid_print
 
 import 'package:flutter/material.dart';
 import 'package:rest_apis/controller/api.dart';
@@ -48,21 +48,25 @@ class _RentCarState extends State<RentCar> {
                   title: Text(car['model']),
                   trailing: ElevatedButton(
                     onPressed: () async {
-                      bool currentAvailability = car['availabilty'] ?? false;
                       try {
-                        bool updatedStatus = await myApi.carRentStatus(
-                            car['_id'], !currentAvailability);
-                        setState(() {
-                          snapshot.data![index]['availabilty'] = updatedStatus;
-                        });
-                      } catch (err) {
-                        print('Failed to update kehheh: $err');
-                      }
+                        final bool originalStatus = car['avail'] ?? false;
+                        final bool updatedStatus = !originalStatus;
+                        final bool updateSuccess = await myApi.carRentStatus(
+                            car['_id'], updatedStatus);
 
-                      //myApi.carRentStatus(car['_id'], !currentAvailability);
+                        if (updateSuccess) {
+                          setState(() {
+                            car['avail'] = updatedStatus;
+                          });
+                        } else {
+                          print('Failed to update the database');
+                        }
+                      } catch (err) {
+                        print('Failed to update: $err');
+                      }
                     },
                     child: Text(
-                      car['availabilty'] ? 'Rent' : 'UnRent',
+                      car['avail'] ? 'Rent' : 'UnRent',
                     ),
                   ),
                 );

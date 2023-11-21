@@ -14,7 +14,7 @@ const carSchema = mongoose.Schema({
     carpower : Number,
     people : String,
     bags : String,
-    availabilty : Boolean,
+    avail : Boolean,
     status : Boolean
 } , {timestamps:true});
 

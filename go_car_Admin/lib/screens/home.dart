@@ -74,7 +74,7 @@ class HomeScreen extends StatelessWidget {
                         "carpower": carpowercontroller.text,
                         "people": peoplecontroller.text,
                         "bags": bagscontroller.text,
-                        "availabilty": true,
+                        "avail": true,
                         "status": true
                       };
                       myApi.addCar(data);

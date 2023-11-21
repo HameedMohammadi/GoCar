@@ -1,7 +1,8 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_key_in_widget_constructors, camel_case_types
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_key_in_widget_constructors, camel_case_types, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:go_car/utilities/routes.dart';
+import 'package:go_car/controller/api.dart';
 
 class signup extends StatefulWidget {
   @override
@@ -9,6 +10,11 @@ class signup extends StatefulWidget {
 }
 
 class _signupState extends State<signup> {
+  api myApi = api();
+  var namecontroller = TextEditingController();
+  var emailcontroller = TextEditingController();
+  var phonecontroller = TextEditingController();
+  var passwordcontroller = TextEditingController();
   String name = "";
   bool changeButton = false;
   bool passwordVisible = false;
@@ -49,6 +55,7 @@ class _signupState extends State<signup> {
                     child: Column(
                       children: [
                         TextFormField(
+                          controller: namecontroller,
                           decoration: InputDecoration(
                               hintText: "Enter Name",
                               labelText: "Name",
@@ -76,6 +83,7 @@ class _signupState extends State<signup> {
                           height: 30.0,
                         ),
                         TextFormField(
+                          controller: emailcontroller,
                           decoration: InputDecoration(
                               hintText: "Enter Email",
                               labelText: "Email",
@@ -103,6 +111,7 @@ class _signupState extends State<signup> {
                           height: 30.0,
                         ),
                         TextFormField(
+                          controller: phonecontroller,
                           decoration: InputDecoration(
                               hintText: "Enter Phone Number",
                               labelText: "Phone",
@@ -130,6 +139,7 @@ class _signupState extends State<signup> {
                           height: 30.0,
                         ),
                         TextFormField(
+                          controller: passwordcontroller,
                           obscureText: !passwordVisible,
                           decoration: InputDecoration(
                               hintText: "Enter Password",
@@ -231,9 +241,15 @@ class _signupState extends State<signup> {
                                       changeButton = true;
                                     });
                                     await Future.delayed(Duration(seconds: 1));
-                                    // ignore: use_build_context_synchronously
-                                    await Navigator.pushNamed(
-                                        context, MyRoutes.homeRoute);
+
+                                    final Map<String, dynamic> data = {
+                                      "name": namecontroller.text,
+                                      "email": emailcontroller.text,
+                                      "phoneNumber": phonecontroller.text,
+                                      "password": passwordcontroller.text,
+                                    };
+                                    myApi.addUser(data);
+                                    Navigator.pop(context);
                                     setState(() {
                                       changeButton = false;
                                     });
