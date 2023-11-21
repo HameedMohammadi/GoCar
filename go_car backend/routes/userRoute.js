@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controller/userController');
-const validateToken = require('../utils/authenticationMiddleware');
 
 // Create a new user
 router.post('/user', userController.createUser);
@@ -12,11 +11,5 @@ router.delete('/user/:id' , userController.deleteUser);
 //get all user
 router.get('/user' , userController.getAllusers);
 // login the user
-router.post('/login' , userController.login);
-
-// authorization
-router.post('/login' , validateToken , userController.login)
-// authorization
-//router.get('/dashboard' , validateToken , checkRole(['Admin' , 'User']) , userController.admindasboard);
-
+router.post('/login' , userController.login)
 module.exports = router

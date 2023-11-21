@@ -65,7 +65,6 @@ async function login (req,res,next) {
 
 function GenerateToken(user) {
     const payload = {
-        role: user.role,
         id: user._id,
     };
     const token = jwt.sign(payload, "adsfasdfjkh$#asdfasdf.adsfxc");

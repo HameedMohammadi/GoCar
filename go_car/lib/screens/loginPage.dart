@@ -1,7 +1,8 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, camel_case_types, use_key_in_widget_constructors, unused_import, unused_element, unused_field
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, camel_case_types, use_key_in_widget_constructors, unused_import, unused_element, unused_field, use_build_context_synchronously, duplicate_ignore
 
 import 'package:go_car/utilities/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:go_car/controller/api.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -9,6 +10,9 @@ class Login extends StatefulWidget {
 }
 
 class _loginState extends State<Login> {
+  api myApi = api();
+  var namecontroller = TextEditingController();
+  var passwordcontroller = TextEditingController();
   String name = "";
   bool changeButton = false;
   bool passwordVisible = false;
@@ -65,6 +69,7 @@ class _loginState extends State<Login> {
             buildGreytext("Please Login with your information"),
             SizedBox(height: 60),
             TextFormField(
+              controller: namecontroller,
               decoration: InputDecoration(
                   hintText: "Enter Username",
                   labelText: "Username",
@@ -90,6 +95,7 @@ class _loginState extends State<Login> {
               height: 15.0,
             ),
             TextFormField(
+              controller: passwordcontroller,
               obscureText: !passwordVisible,
               decoration: InputDecoration(
                   hintText: "Enter Password",
@@ -145,9 +151,15 @@ class _loginState extends State<Login> {
                         setState(() {
                           changeButton = true;
                         });
-                        await Future.delayed(Duration(milliseconds: 200));
+                        bool loginUser = await myApi.loginUser(
+                            namecontroller.text, passwordcontroller.text);
                         // ignore: use_build_context_synchronously
-                        await Navigator.pushNamed(context, MyRoutes.homeRoute);
+                        if (loginUser) {
+                          await Navigator.pushNamed(
+                              context, MyRoutes.homeRoute);
+                        } else {
+                          print("Failed");
+                        }
                         setState(() {
                           changeButton = false;
                         });
