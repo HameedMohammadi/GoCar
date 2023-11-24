@@ -2,10 +2,10 @@ const mongoose = require('mongoose')
 const userSchema = mongoose.Schema({
     name : String,
     email : String,
-    phonenumber : Number,
-    emergencycontact : Number,
+    phonenumber : String,
+    emergencycontact : String,
     password : String,
-    cnic : Number,
+    cnic : String,
     dob : String,
     rentalhistory : [String],
     license : Boolean,

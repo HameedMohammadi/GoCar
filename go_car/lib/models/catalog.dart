@@ -5,6 +5,7 @@ class catalogmodel {
 }
 
 class items {
+  final String id;
   final String model;
   final String company;
   final String number;
@@ -22,7 +23,8 @@ class items {
   final bool avail;
   final bool status;
   items(
-      {required this.model,
+      {required this.id,
+      required this.model,
       required this.company,
       required this.number,
       required this.carType,
@@ -40,6 +42,7 @@ class items {
       required this.status});
   factory items.fromMap(Map<String, dynamic> map) {
     return items(
+        id: map['_id'],
         model: map["model"],
         company: map["company"],
         number: map["number"],
@@ -58,6 +61,7 @@ class items {
         status: map["status"]);
   }
   toMap() => {
+        "_id": id,
         "model": model,
         "company": company,
         "number": number,

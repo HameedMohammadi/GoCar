@@ -8,6 +8,8 @@ router.post('/car', carController.createCar);
 router.get('/car' ,  carController.getAllcars);
 // update the rent Status of the car
 router.put('/car/:id', carController.updateAvailabilty);
+// Book a Car
+router.post('/BookCar' , carController.BookCar);
 
 
 module.exports = router

@@ -5,4 +5,5 @@ class MyRoutes {
   static String homeRoute = "/homeScreen";
   static String catalogRoute = "/catalog";
   static String detailsRoute = "/details";
+  static String bookingRoute = "/bookingScreen";
 }

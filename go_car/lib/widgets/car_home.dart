@@ -50,7 +50,7 @@ Padding buildCar(int i, Size size, ThemeData themeData, BuildContext context) {
                     child: Align(
                       alignment: Alignment.topCenter,
                       child: catalogmodel.product.toList()[i].isRotated
-                          ? Image.asset(
+                          ? Image.network(
                               catalogmodel.product.toList()[i].imageURl,
                               height: size.width * 0.25,
                               width: size.width * 0.5,
@@ -59,7 +59,7 @@ Padding buildCar(int i, Size size, ThemeData themeData, BuildContext context) {
                           : Transform(
                               alignment: Alignment.center,
                               transform: Matrix4.rotationY(pi),
-                              child: Image.asset(
+                              child: Image.network(
                                 catalogmodel.product.toList()[i].imageURl,
                                 height: size.width * 0.25,
                                 width: size.width * 0.5,

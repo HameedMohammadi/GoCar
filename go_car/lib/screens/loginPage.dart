@@ -1,8 +1,9 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, camel_case_types, use_key_in_widget_constructors, unused_import, unused_element, unused_field, use_build_context_synchronously, duplicate_ignore
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, camel_case_types, use_key_in_widget_constructors, unused_import, unused_element, unused_field, use_build_context_synchronously, duplicate_ignore, avoid_print
 
 import 'package:go_car/utilities/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:go_car/controller/api.dart';
+import 'package:go_car/models/user.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -151,12 +152,19 @@ class _loginState extends State<Login> {
                         setState(() {
                           changeButton = true;
                         });
-                        bool loginUser = await myApi.loginUser(
+                        String? loginUserID = await myApi.loginUser(
                             namecontroller.text, passwordcontroller.text);
                         // ignore: use_build_context_synchronously
-                        if (loginUser) {
-                          await Navigator.pushNamed(
-                              context, MyRoutes.homeRoute);
+                        if (loginUserID != null) {
+                          User? loggedInUser =
+                              await myApi.fetchUserData(loginUserID);
+                          if (loggedInUser != null) {
+                            Session.login(loggedInUser);
+                            await Navigator.pushNamed(
+                                context, MyRoutes.homeRoute);
+                          } else {
+                            print("Failed to fetch user data");
+                          }
                         } else {
                           print("Failed");
                         }

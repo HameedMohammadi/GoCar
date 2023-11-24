@@ -34,16 +34,49 @@ async function deleteUser (req , res) {
         res.status(500).json({error : err.message});
     }
 }
-
+async function getUserById(req, res) {
+    const{ id } = req.params;
+    try {
+      const user = await User.findById(id);
+      
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+  
+      res.json(user);
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  }
+    
 async function getAllusers (req,res) {
     try{
         const users = await User.find();
         res.json(users);
-    }
+    } 
     catch (err) {
         res.status(500).json({error : err.message});
     }
 }
+
+async function rentHistory (req,res) {
+    const { id } = req.params;
+    const {newbooking }  = req.body;
+    try {
+        const user = await User.findById(id);
+        if (!user) {
+            return { success: false, message: 'User not found' };
+        }
+        user.rentalhistory.push(newbooking); 
+        await user.save(); 
+        res.status(200).json({ message: 'Item added to the list successfully', updatedUser: user });
+
+    }
+    catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
 async function login (req,res,next) {
     const {name , password} = req.body;
     try{
@@ -79,4 +112,6 @@ module.exports = {
     deleteUser,
     getAllusers,
     login ,
+    getUserById,
+    rentHistory
 }

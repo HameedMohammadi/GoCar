@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:go_car/models/catalog.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:unicons/unicons.dart';
+import 'package:go_car/screens/BookCar.dart';
 
 class DetailsPage extends StatefulWidget {
   final items catalog;
@@ -21,6 +22,70 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsPageState extends State<DetailsPage> {
+  Align buildSelectButton(Size size, bool isAvailable, BuildContext context) {
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Padding(
+        padding: EdgeInsets.only(
+          bottom: size.height * 0.01,
+        ),
+        child: SizedBox(
+          height: size.height * 0.07,
+          width: size.width,
+          child: InkWell(
+            onTap: () {
+              if (isAvailable) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => bookingScreen(item: widget.catalog),
+                  ),
+                );
+              } else {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text("Car not Available"),
+                      content: Text("Car is already Rented"),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Text('OK'),
+                        )
+                      ],
+                    );
+                  },
+                );
+              }
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                color: isAvailable
+                    ? const Color(0xff3b22a1)
+                    : Colors.grey.withOpacity(0.5),
+              ),
+              child: Center(
+                child: Text(
+                  'Book',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.lato(
+                    fontSize: size.height * 0.025,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size; //check the size of device
@@ -74,6 +139,7 @@ class _DetailsPageState extends State<DetailsPage> {
       ),
       extendBody: true,
       extendBodyBehindAppBar: true,
+      backgroundColor: const Color(0xfff8f8f8),
       body: Center(
         child: Container(
           height: size.height,
@@ -92,7 +158,7 @@ class _DetailsPageState extends State<DetailsPage> {
                     physics: const NeverScrollableScrollPhysics(),
                     children: [
                       widget.catalog.isRotated
-                          ? Image.asset(
+                          ? Image.network(
                               widget.catalog.imageURl,
                               height: size.width * 0.5,
                               width: size.width * 0.8,
@@ -365,62 +431,4 @@ class _DetailsPageState extends State<DetailsPage> {
       ),
     );
   }
-}
-
-Align buildSelectButton(Size size, bool isAvailable, BuildContext context) {
-  return Align(
-    alignment: Alignment.bottomCenter,
-    child: Padding(
-      padding: EdgeInsets.only(
-        bottom: size.height * 0.01,
-      ),
-      child: SizedBox(
-        height: size.height * 0.07,
-        width: size.width,
-        child: InkWell(
-          onTap: () {
-            if (isAvailable) {
-            } else {
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: Text("Car not Available"),
-                    content: Text("Car is already Rented"),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Text('OK'),
-                      )
-                    ],
-                  );
-                },
-              );
-            }
-          },
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: isAvailable
-                  ? const Color(0xff3b22a1)
-                  : Colors.grey.withOpacity(0.5),
-            ),
-            child: Center(
-              child: Text(
-                'Book',
-                textAlign: TextAlign.center,
-                style: GoogleFonts.lato(
-                  fontSize: size.height * 0.025,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    ),
-  );
 }

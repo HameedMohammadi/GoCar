@@ -10,6 +10,11 @@ router.put('/user/:id' , userController.updateUser);
 router.delete('/user/:id' , userController.deleteUser);
 //get all user
 router.get('/user' , userController.getAllusers);
+// get user by id
+router.get('/user/:id' , userController.getUserById);
 // login the user
-router.post('/login' , userController.login)
+router.post('/login' , userController.login);
+// append the rentalHistory list
+router.post('/user/:id/renthistory' , userController.rentHistory);
+
 module.exports = router

@@ -44,25 +44,24 @@ class api {
     }
   }
 
-  Future<bool> carRentStatus(String carId, bool isAvailable) async {
-    final String apiUrl = 'http://localhost:3007/api/car/$carId';
+  Future<Map<String, dynamic>> updateCar(
+      Map<String, dynamic> updateData, String id) async {
     try {
-      final response = await http
-          .put(Uri.parse(apiUrl), body: {'avail': isAvailable.toString()});
+      final response = await http.put(
+        Uri.parse('http://localhost:3007/api/car/$id'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(updateData),
+      );
+
       if (response.statusCode == 200) {
-        final Map<String, dynamic> responseData = json.decode(response.body);
-        if (responseData.containsKey('message') &&
-            responseData['message'] ==
-                'Car availability updated successfully') {
-          return true; // Return true if the update was successful
-        } else {
-          throw Exception('Failed to update car avail');
-        }
+        return jsonDecode(response.body);
       } else {
-        throw Exception('Failed to update car avail');
+        throw Exception('Failed to update car: ${response.statusCode}');
       }
-    } catch (err) {
-      throw Exception('Failed to update : $err');
+    } catch (error) {
+      throw Exception('Failed to update car: $error');
     }
   }
 }

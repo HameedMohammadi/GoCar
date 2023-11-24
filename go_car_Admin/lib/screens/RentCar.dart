@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, library_private_types_in_public_api, use_key_in_widget_constructors, avoid_print
+// ignore_for_file: prefer_const_constructors, avoid_print, use_key_in_widget_constructors, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
 import 'package:rest_apis/controller/api.dart';
@@ -16,6 +16,14 @@ class _RentCarState extends State<RentCar> {
   void initState() {
     super.initState();
     futureCars = myApi.getAllCars();
+  }
+
+  Future<void> updateCarAvailability(String carId, bool newStatus) async {
+    try {
+      await myApi.updateCar({'avail': newStatus}, carId);
+    } catch (err) {
+      print('Failed to update: $err');
+    }
   }
 
   @override
@@ -48,22 +56,12 @@ class _RentCarState extends State<RentCar> {
                   title: Text(car['model']),
                   trailing: ElevatedButton(
                     onPressed: () async {
-                      try {
-                        final bool originalStatus = car['avail'] ?? false;
-                        final bool updatedStatus = !originalStatus;
-                        final bool updateSuccess = await myApi.carRentStatus(
-                            car['_id'], updatedStatus);
-
-                        if (updateSuccess) {
-                          setState(() {
-                            car['avail'] = updatedStatus;
-                          });
-                        } else {
-                          print('Failed to update the database');
-                        }
-                      } catch (err) {
-                        print('Failed to update: $err');
-                      }
+                      final bool originalStatus = car['avail'] ?? false;
+                      final bool updatedStatus = !originalStatus;
+                      await updateCarAvailability(car['_id'], updatedStatus);
+                      setState(() {
+                        car['avail'] = updatedStatus;
+                      });
                     },
                     child: Text(
                       car['avail'] ? 'Rent' : 'UnRent',

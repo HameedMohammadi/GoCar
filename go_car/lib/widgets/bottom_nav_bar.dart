@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:go_car/screens/home.dart';
 import 'package:go_car/widgets/bottom_nav_item.dart';
 import 'package:flutter/material.dart';

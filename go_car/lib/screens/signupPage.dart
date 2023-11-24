@@ -245,7 +245,7 @@ class _signupState extends State<signup> {
                                     final Map<String, dynamic> data = {
                                       "name": namecontroller.text,
                                       "email": emailcontroller.text,
-                                      "phoneNumber": phonecontroller.text,
+                                      "phonenumber": phonecontroller.text,
                                       "password": passwordcontroller.text,
                                     };
                                     myApi.addUser(data);

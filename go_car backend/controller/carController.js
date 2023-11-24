@@ -1,4 +1,5 @@
 const Car = require('../models/car');
+const booking = require('../models/BookCar');
 const { param } = require('../routes/carRoute');
 
 
@@ -20,31 +21,32 @@ async function getAllcars (req,res) {
         res.status(500).json({error : err.message});
     }
 }
-async function updateAvailabilty(req, res) {  
-    try {
-      const { id } = req.params;
-      const { avail } = req.body;
-  
-      const car = await Car.findByIdAndUpdate(
-        id,
-        { avail: avail }, // Specify the field and its new value
-        { new: true }
-      );
-  
-      if (!car) {
-        return res.status(404).json({ error: 'Car not found' });
-      }
-  
-      res.json({ message: 'Car availability updated successfully', car });
-    } catch (err) {
-      res.status(500).json({ error: err.message });
-    }
+
+async function updateAvailabilty(req,res) {
+  try{
+    const{id} = req.params;
+    const updated = await Car.findByIdAndUpdate(id,req.body, {new : true});
+    res.json(updated);
   }
+  catch(err) {
+    res.status(500).json({error : err.message});
+  }
+}
+
   
-  
+async function BookCar(req,res) {
+  try {
+    const newbooking = await booking.create(req.body); 
+    res.status(201).json(newbooking); 
+  }
+  catch (error) {
+    res.status(500).json({error : error})
+  }
+}  
   
 module.exports = {
     createCar,
     getAllcars,
-    updateAvailabilty
+    updateAvailabilty,
+    BookCar
 }
