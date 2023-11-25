@@ -1,18 +1,14 @@
-// ignore_for_file: library_private_types_in_public_api, camel_case_types, non_constant_identifier_names, unused_import, unnecessary_import
+// ignore_for_file: prefer_const_constructors, unused_import, library_private_types_in_public_api
 
-import 'dart:convert';
-
-import 'package:flutter/services.dart';
-import 'package:go_car/screens/catalog_Page.dart';
+import 'package:flutter/material.dart';
+import 'package:go_car/models/catalog.dart';
+import 'package:go_car/screens/details.dart';
 import 'package:go_car/widgets/bottom_nav_bar.dart';
-
+import 'package:go_car/widgets/drawer.dart';
 import 'package:go_car/widgets/most_rented.dart';
 import 'package:go_car/widgets/top_brands.dart';
-import 'package:flutter/material.dart';
-import 'package:go_car/widgets/drawer.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:unicons/unicons.dart';
-import 'package:go_car/models/catalog.dart';
 
 class home extends StatefulWidget {
   const home({Key? key}) : super(key: key);
@@ -22,10 +18,29 @@ class home extends StatefulWidget {
 }
 
 class _HomePageState extends State<home> {
+  List<items> searchResults = [];
+  TextEditingController searchController = TextEditingController();
+  Size size = Size.zero;
+  ThemeData themeData = ThemeData();
+
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    ThemeData themeData = Theme.of(context);
+    size = MediaQuery.of(context).size;
+    themeData = Theme.of(context);
+
+    void onSearchTextChanged(String text) {
+      setState(() {
+        if (text.isEmpty) {
+          searchResults = [];
+        } else {
+          searchResults = catalogmodel.product
+              .where((item) =>
+                  item.model.toLowerCase().contains(text.toLowerCase()))
+              .toList();
+        }
+      });
+    }
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(40.0),
@@ -62,7 +77,7 @@ class _HomePageState extends State<home> {
                   borderRadius: const BorderRadius.all(
                     Radius.circular(15),
                   ),
-                  color: themeData.cardColor, //section bg color
+                  color: themeData.cardColor,
                 ),
                 child: Column(
                   children: [
@@ -106,11 +121,12 @@ class _HomePageState extends State<home> {
                       child: Row(
                         children: [
                           SizedBox(
-                            width: size.width * 0.65,
+                            width: size.width * 0.8,
                             height: size.height * 0.06,
                             child: TextField(
-                              //searchbar
-                              style: GoogleFonts.poppins(
+                              controller: searchController,
+                              onChanged: onSearchTextChanged,
+                              style: TextStyle(
                                 color: themeData.primaryColor,
                               ),
                               textInputAction: TextInputAction.next,
@@ -123,36 +139,54 @@ class _HomePageState extends State<home> {
                                 enabledBorder: textFieldBorder(),
                                 focusedBorder: textFieldBorder(),
                                 border: textFieldBorder(),
-                                hintStyle: GoogleFonts.poppins(
+                                hintStyle: TextStyle(
                                   color: themeData.primaryColor,
                                 ),
                                 hintText: 'Search a car',
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                              left: size.width * 0.025,
-                            ),
-                            child: Container(
-                              height: size.height * 0.06,
-                              width: size.width * 0.14,
-                              decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10),
-                                ),
-                                color: Color(0xff3b22a1), //filters bg color
-                              ),
-                              child: Icon(
-                                UniconsLine.sliders_v,
-                                color: Colors.white,
-                                size: size.height * 0.032,
-                              ),
-                            ),
-                          ),
                         ],
                       ),
                     ),
+                    if (searchResults.isNotEmpty)
+                      Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: size.width * 0.05),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                spreadRadius: 1,
+                                blurRadius: 3,
+                                offset: Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: List.generate(
+                              searchResults.length,
+                              (index) => ListTile(
+                                title: Text(searchResults[index].model),
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => DetailsPage(
+                                        catalog: searchResults[index],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                   ],
                 ),
               ),

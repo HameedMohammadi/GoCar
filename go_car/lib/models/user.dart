@@ -27,7 +27,7 @@ class User {
         name: json['name'] as String,
         email: json['email'] as String,
         phonenumber: json['phonenumber'] as String,
-        emergencyContact: json['emergencyContact'] as String?,
+        emergencyContact: json['emergencycontact'] as String?,
         cnic: json['cnic'] as String?,
         dob: json['dob'] as String?,
         rentalHistory: (json['rentalHistory'] as List<dynamic>?)

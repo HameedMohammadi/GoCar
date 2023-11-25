@@ -1,7 +1,8 @@
 const User = require('../models/user');
 const jwt = require('jsonwebtoken'); 
 const { param } = require('../routes/userRoute');
-
+const nodemailer = require('nodemailer');
+const crypto = require('crypto');
 
 async function createUser (req ,res) {
     try {
@@ -59,6 +60,35 @@ async function getAllusers (req,res) {
     }
 }
 
+
+ 
+async function forgetpassword (req,res) {
+    const { email } = req.body;
+    const token = crypto.randomBytes(20).toString('hex');
+    const resetLink = `https://localhost:3007/reset_password?token=${token}`;
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'ammadaslam07@gmail.com', 
+            pass: '26687858Ru' 
+            } 
+    });
+    const mailOptions = {
+        from: 'ammadaslam07@gmail.com',
+        to: email,
+        subject: 'Password Reset',
+        html: `Click <a href="${resetLink}">here</a> to reset your password. This link is valid for a limited time.`
+    }
+    try {
+        const info = await transporter.sendMail(mailOptions);
+        res.status(200).json({message : 'Password reset email sent'});
+    }
+    catch (error) {
+        res.status(500).json({error : 'Failed to send'});
+    }   
+}
+
+
 async function rentHistory (req,res) {
     const { id } = req.params;
     const {newbooking }  = req.body;
@@ -113,5 +143,6 @@ module.exports = {
     getAllusers,
     login ,
     getUserById,
-    rentHistory
+    rentHistory,
+    forgetpassword
 }

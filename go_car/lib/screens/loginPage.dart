@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, camel_case_types, use_key_in_widget_constructors, unused_import, unused_element, unused_field, use_build_context_synchronously, duplicate_ignore, avoid_print
 
+import 'package:go_car/screens/forgetPassword.dart';
 import 'package:go_car/utilities/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:go_car/controller/api.dart';
@@ -133,7 +134,14 @@ class _loginState extends State<Login> {
             Align(
               alignment: Alignment.centerRight,
               child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => forgetPassword(),
+                      ),
+                    );
+                  },
                   child: Text(
                     "Forgot your password?",
                     style: TextStyle(color: Colors.grey),

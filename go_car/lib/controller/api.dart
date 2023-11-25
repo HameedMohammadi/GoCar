@@ -29,8 +29,7 @@ class api {
 
   Future<void> updateUser(
       String id, String cnic, String emergencyContact, bool license) async {
-    final String apiUrl =
-        'http://localhost:3007/api/user/$id'; // Replace with your API URL
+    final String apiUrl = 'http://localhost:3007/api/user/$id';
 
     try {
       var response = await http.patch(

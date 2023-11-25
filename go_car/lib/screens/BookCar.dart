@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api, prefer_const_constructors, avoid_print, depend_on_referenced_packages, camel_case_types, unused_import, unused_local_variable, non_constant_identifier_names
+// ignore_for_file: library_private_types_in_public_api, prefer_const_constructors, avoid_print, depend_on_referenced_packages, camel_case_types, unused_import, unused_local_variable, non_constant_identifier_names, unrelated_type_equality_checks
 
 import 'dart:convert';
 
@@ -362,13 +362,14 @@ class _BookingScreenState extends State<bookingScreen> {
                       "car_id": widget.item.id,
                     };
                     String? bookingid = await myApi.bookCar(data);
+                    bool licenseValue = dropdownValue == 'Yes';
                     if (bookingid != null) {
-                      myApi.rentHistory(USERID, bookingid);
-                      myApi.updateUser(USERID, cnicController.text,
-                          enumberController.text, dropdownValue);
+                      await myApi.rentHistory(USERID, bookingid);
                     } else {
                       print('Failed to retrieve booking ID');
                     }
+                    myApi.updateUser(USERID, cnicController.text,
+                        enumberController.text, licenseValue);
                     //updateCarAvailability(widget.item.id, false);
                   } else {}
                 },
