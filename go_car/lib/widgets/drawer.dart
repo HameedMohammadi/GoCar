@@ -1,13 +1,25 @@
-// ignore_for_file: use_key_in_widget_constructors, camel_case_types, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_declarations, non_constant_identifier_names
+// ignore_for_file: use_key_in_widget_constructors, camel_case_types, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_declarations, non_constant_identifier_names, must_be_immutable
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_car/models/user.dart';
 
-class mydrawer extends StatelessWidget {
+class mydrawer extends StatefulWidget {
+  @override
+  State<mydrawer> createState() => _mydrawerState();
+}
+
+class _mydrawerState extends State<mydrawer> {
+  User? loggedInUser;
+
+  @override
+  void initState() {
+    super.initState();
+    loggedInUser = Session.loggedInUser;
+  }
+
   @override
   Widget build(BuildContext context) {
-    final ImageURL =
-        "https://media.licdn.com/dms/image/D4E03AQFaFI9m3DUw4g/profile-displayphoto-shrink_800_800/0/1674329763158?e=1701907200&v=beta&t=APPuF7xcLtUuNhfVnC-gJ60wJ3M5yRpmin0OL36lyrQ";
     return Drawer(
       child: Container(
         color: Colors.deepPurple,
@@ -19,11 +31,8 @@ class mydrawer extends StatelessWidget {
                 child: UserAccountsDrawerHeader(
                   decoration: BoxDecoration(color: Colors.deepPurple),
                   margin: EdgeInsets.zero,
-                  accountName: Text("Ammad Aslam"),
-                  accountEmail: Text("ammadaslam07@gmail.com"),
-                  currentAccountPicture: CircleAvatar(
-                    backgroundImage: NetworkImage(ImageURL),
-                  ),
+                  accountName: Text(loggedInUser!.name),
+                  accountEmail: Text(loggedInUser!.email),
                 )),
             ListTile(
               leading: Icon(

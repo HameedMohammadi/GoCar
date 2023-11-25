@@ -1,12 +1,16 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, avoid_web_libraries_in_flutter, unused_import
 
+import 'dart:js';
+
+import 'package:go_car/screens/editUser.dart';
 import 'package:go_car/screens/home.dart';
 import 'package:go_car/widgets/bottom_nav_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:unicons/unicons.dart';
 
-Widget buildBottomNavBar(int currIndex, Size size, ThemeData themeData) {
+Widget buildBottomNavBar(
+    int currIndex, Size size, ThemeData themeData, BuildContext context) {
   return BottomNavigationBar(
     iconSize: size.width * 0.07,
     elevation: 0,
@@ -27,26 +31,18 @@ Widget buildBottomNavBar(int currIndex, Size size, ThemeData themeData) {
       }
     },
     items: [
-      buildBottomNavItem(
-        UniconsLine.bell,
-        themeData,
-        size,
-      ),
-      buildBottomNavItem(
-        UniconsLine.map_marker,
-        themeData,
-        size,
-      ),
-      buildBottomNavItem(
-        UniconsLine.user,
-        themeData,
-        size,
-      ),
-      buildBottomNavItem(
-        UniconsLine.apps,
-        themeData,
-        size,
-      ),
+      buildBottomNavItem(UniconsLine.bell, themeData, size, (ctx) {
+        Navigator.push(ctx, MaterialPageRoute(builder: (ctx) => editUser()));
+      }, context),
+      buildBottomNavItem(UniconsLine.map_marker, themeData, size, (ctx) {
+        Navigator.push(ctx, MaterialPageRoute(builder: (ctx) => editUser()));
+      }, context),
+      buildBottomNavItem(UniconsLine.user, themeData, size, (ctx) {
+        Navigator.push(ctx, MaterialPageRoute(builder: (ctx) => editUser()));
+      }, context),
+      buildBottomNavItem(UniconsLine.apps, themeData, size, (ctx) {
+        Navigator.push(ctx, MaterialPageRoute(builder: (ctx) => editUser()));
+      }, context),
     ],
   );
 }

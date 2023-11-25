@@ -368,8 +368,7 @@ class _BookingScreenState extends State<bookingScreen> {
                     } else {
                       print('Failed to retrieve booking ID');
                     }
-                    myApi.updateUser(USERID, cnicController.text,
-                        enumberController.text, licenseValue);
+                    myApi.updateUser(data, USERID);
                     //updateCarAvailability(widget.item.id, false);
                   } else {}
                 },

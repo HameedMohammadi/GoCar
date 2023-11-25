@@ -27,26 +27,24 @@ class api {
     }
   }
 
-  Future<void> updateUser(
-      String id, String cnic, String emergencyContact, bool license) async {
-    final String apiUrl = 'http://localhost:3007/api/user/$id';
-
+  Future<Map<String, dynamic>> updateUser(
+      Map<String, dynamic> updateData, String id) async {
     try {
-      var response = await http.patch(
-        Uri.parse(apiUrl),
-        body: {
-          'cnic': cnic,
-          'emergencycontact': emergencyContact,
-          'license': license.toString()
+      final response = await http.put(
+        Uri.parse('http://localhost:3007/api/user/$id'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
         },
+        body: jsonEncode(updateData),
       );
+
       if (response.statusCode == 200) {
-        print('User data updated successfully');
+        return jsonDecode(response.body);
       } else {
-        print('Failed to update user data: ${response.statusCode}');
+        throw Exception('Failed to update user: ${response.statusCode}');
       }
-    } catch (e) {
-      print('Exception while updating user data: $e');
+    } catch (error) {
+      throw Exception('Failed to update user: $error');
     }
   }
 

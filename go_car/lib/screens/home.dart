@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_car/models/catalog.dart';
+import 'package:go_car/models/user.dart';
 import 'package:go_car/screens/details.dart';
 import 'package:go_car/widgets/bottom_nav_bar.dart';
 import 'package:go_car/widgets/drawer.dart';
@@ -22,6 +23,7 @@ class _HomePageState extends State<home> {
   TextEditingController searchController = TextEditingController();
   Size size = Size.zero;
   ThemeData themeData = ThemeData();
+  User? loggedInUser;
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +63,7 @@ class _HomePageState extends State<home> {
       ),
       extendBody: true,
       extendBodyBehindAppBar: true,
-      bottomNavigationBar: buildBottomNavBar(1, size, themeData),
+      bottomNavigationBar: buildBottomNavBar(1, size, themeData, context),
       backgroundColor: const Color(0xfff8f8f8),
       body: SafeArea(
         child: ListView(
