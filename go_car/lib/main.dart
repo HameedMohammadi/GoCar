@@ -47,8 +47,11 @@ Future<void> loadData() async {
 
     if (response.statusCode == 200) {
       final List<dynamic> data = json.decode(response.body);
-      catalogmodel.product =
-          List.from(data).map<items>((item) => items.fromMap(item)).toList();
+      final List<items> filteredItems = List.from(data)
+          .where((item) => item['status'] != false)
+          .map<items>((item) => items.fromMap(item))
+          .toList();
+      catalogmodel.product = filteredItems;
     } else {
       print('Failed to load data: ${response.statusCode}');
     }

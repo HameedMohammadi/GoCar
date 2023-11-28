@@ -4,9 +4,11 @@ import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'package:go_car/controller/api.dart';
 import 'package:go_car/models/booking.dart';
 import 'package:go_car/models/user.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:unicons/unicons.dart';
 
 import 'package:go_car/models/catalog.dart';
@@ -72,11 +74,67 @@ class _rentHistorystate extends State<rentHistory> {
                     } else {
                       // Display car data attributes here
                       final items carData = carSnapshot.data!;
-                      return ListTile(
-                        title: Text(
-                          'Car Name: ${carData.model}, Car Year: ${carData.year}',
-                        ),
-                      );
+                      return VxBox(
+                          child: Row(
+                        children: [
+                          carData.isRotated
+                              ? Image.network(carData.imageURl)
+                                  .box
+                                  .make()
+                                  .p16()
+                                  .w32(context)
+                              : Transform(
+                                  alignment: Alignment.center,
+                                  transform: Matrix4.rotationY(pi),
+                                  child: Image.network(carData.imageURl)
+                                      .box
+                                      .make()
+                                      .p16()
+                                      .w32(context)),
+                          Expanded(
+                              child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              carData.model.text.lg
+                                  .color(mytheme.bluish)
+                                  .bold
+                                  .make(),
+                              Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Price : ',
+                                        style: context
+                                            .captionStyle, // Apply the caption style
+                                      ),
+                                      bookingDetails.price.text
+                                          .textStyle(context.captionStyle)
+                                          .make(),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 2,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        "Days :",
+                                        style: context.captionStyle,
+                                      ),
+                                      bookingDetails.bookingDays.text
+                                          .textStyle(context.captionStyle)
+                                          .make(),
+                                    ],
+                                  )
+                                ],
+                              ),
+                              SizedBox(height: 8),
+                            ],
+                          ))
+                        ],
+                      )).white.rounded.square(100).make().p16();
                     }
                   },
                 );
