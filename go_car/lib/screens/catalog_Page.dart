@@ -1,11 +1,10 @@
-// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, camel_case_types, non_constant_identifier_names, unused_local_variable, unnecessary_null_comparison, unused_import, sort_child_properties_last
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, camel_case_types, non_constant_identifier_names, unused_local_variable, unnecessary_null_comparison, unused_import, sort_child_properties_last, unnecessary_import
 
 import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:unicons/unicons.dart';
-
 import 'package:go_car/models/catalog.dart';
 import 'package:go_car/widgets/carview.dart';
 import 'package:go_car/widgets/drawer.dart';
@@ -65,7 +64,6 @@ class _catalog_pageState extends State<catalog_page> {
           ),
         ),
       ),
-      drawer: mydrawer(),
     );
   }
 }

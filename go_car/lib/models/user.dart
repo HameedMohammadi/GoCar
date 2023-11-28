@@ -30,7 +30,7 @@ class User {
         emergencyContact: json['emergencycontact'] as String?,
         cnic: json['cnic'] as String?,
         dob: json['dob'] as String?,
-        rentalHistory: (json['rentalHistory'] as List<dynamic>?)
+        rentalHistory: (json['rentalhistory'] as List<dynamic>?)
                 ?.map((history) => history.toString())
                 .toList() ??
             [],

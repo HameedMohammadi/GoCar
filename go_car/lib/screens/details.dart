@@ -91,6 +91,48 @@ class _DetailsPageState extends State<DetailsPage> {
     Size size = MediaQuery.of(context).size; //check the size of device
     ThemeData themeData = Theme.of(context);
     bool isAvailable = widget.catalog.avail;
+    Future<void> showInspectionReportDialog(BuildContext context) async {
+      return showDialog<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Image.network(
+              'https://i.imgur.com/dk5DR4L.jpg', // Replace with your image path
+              fit: BoxFit.cover,
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('Close'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+
+    Widget buildInspectionReportButton(BuildContext context) {
+      return TextButton(
+        onPressed: () {
+          showInspectionReportDialog(context);
+        },
+        style: TextButton.styleFrom(
+          side: BorderSide.none,
+          tapTargetSize:
+              MaterialTapTargetSize.shrinkWrap, // Remove tap target padding
+        ),
+        child: Text(
+          'View Inspection Report',
+          style: GoogleFonts.poppins(
+              fontSize: MediaQuery.of(context).size.height * 0.015,
+              color: Colors.black,
+              decoration: TextDecoration.underline),
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(40.0), //appbar size
@@ -359,6 +401,12 @@ class _DetailsPageState extends State<DetailsPage> {
                       ),
                     ],
                   ),
+                  Positioned(
+                    bottom: size.height * 0.19,
+                    right: size.width * 0.01,
+                    child: buildInspectionReportButton(context),
+                  ),
+                  SizedBox(height: 20),
                   buildSelectButton(size, isAvailable, context),
                 ],
               ),

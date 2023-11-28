@@ -10,6 +10,9 @@ router.get('/car' ,  carController.getAllcars);
 router.put('/car/:id', carController.updateAvailabilty);
 // Book a Car
 router.post('/BookCar' , carController.BookCar);
+// get car by carID
+router.get('/car/:id' ,  carController.getcarById);
+
 
 
 module.exports = router

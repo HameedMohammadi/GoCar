@@ -1,7 +1,7 @@
-// ignore_for_file: library_private_types_in_public_api, prefer_const_constructors, avoid_print, depend_on_referenced_packages, camel_case_types, unused_import, unused_local_variable, non_constant_identifier_names, unrelated_type_equality_checks
+// ignore_for_file: library_private_types_in_public_api, prefer_const_constructors, avoid_print, depend_on_referenced_packages, camel_case_types, unused_import, unused_local_variable, non_constant_identifier_names, unrelated_type_equality_checks, prefer_const_declarations
 
 import 'dart:convert';
-
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:go_car/controller/api.dart';
 import 'package:go_car/models/catalog.dart';
@@ -69,6 +69,24 @@ class _BookingScreenState extends State<bookingScreen> {
     priceController.dispose();
     phoneNumberController.dispose();
     super.dispose();
+  }
+
+  Future<void> loadData() async {
+    try {
+      final String baseURL = "http://localhost:3007/api/car";
+
+      final response = await http.get(Uri.parse(baseURL));
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data = json.decode(response.body);
+        catalogmodel.product =
+            List.from(data).map<items>((item) => items.fromMap(item)).toList();
+      } else {
+        print('Failed to load data: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error loading data: $e');
+    }
   }
 
   void calculatePrice() {
@@ -360,6 +378,7 @@ class _BookingScreenState extends State<bookingScreen> {
                       "user_id": USERID,
                       "bookingDays": bookingDays,
                       "car_id": widget.item.id,
+                      "price": priceController.text
                     };
                     String? bookingid = await myApi.bookCar(data);
                     bool licenseValue = dropdownValue == 'Yes';
@@ -369,7 +388,9 @@ class _BookingScreenState extends State<bookingScreen> {
                       print('Failed to retrieve booking ID');
                     }
                     myApi.updateUser(data, USERID);
-                    //updateCarAvailability(widget.item.id, false);
+                    updateCarAvailability(widget.item.id, false);
+                    loadData();
+                    Navigator.pop(context);
                   } else {}
                 },
                 child: Text(

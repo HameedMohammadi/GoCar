@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import "package:flutter/foundation.dart";
 import 'package:http/http.dart' as http;
+import 'package:rest_apis/models/car.dart';
 
 class api {
   final String baseURL = "http://localhost:3007/api/car";
@@ -62,6 +63,25 @@ class api {
       }
     } catch (error) {
       throw Exception('Failed to update car: $error');
+    }
+  }
+
+  Future<car?> fetchCarData(String carID) async {
+    final String getcarURL = "http://localhost:3007/api/car/$carID";
+    try {
+      final response = await http.get(Uri.parse(getcarURL));
+      if (response.statusCode == 200) {
+        final responseData = json.decode(response.body);
+        car cardata = car.fromJson(responseData);
+        return cardata;
+      } else {
+        print(
+            'Failed to fetch car data with status code: ${response.statusCode}');
+        return null;
+      }
+    } catch (error) {
+      print('Error : $error');
+      return null;
     }
   }
 }

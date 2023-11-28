@@ -1,11 +1,18 @@
-// ignore_for_file: use_key_in_widget_constructors, must_be_immutable, unused_local_variable
+// ignore_for_file: unnecessary_null_comparison, prefer_const_constructors, camel_case_types, avoid_print, unused_import
 
 import 'package:flutter/material.dart';
 import 'package:rest_apis/controller/api.dart';
-import 'package:rest_apis/screens/updateCar.dart';
-import 'RentCar.dart';
+import 'package:rest_apis/models/car.dart'; // Import your API class here
 
-class HomeScreen extends StatelessWidget {
+class updatesingle extends StatefulWidget {
+  final String carid;
+  const updatesingle({Key? key, required this.carid}) : super(key: key);
+
+  @override
+  State<updatesingle> createState() => _UpdateSingleState();
+}
+
+class _UpdateSingleState extends State<updatesingle> {
   api myApi = api();
   var modelcontroller = TextEditingController();
   var companycontroller = TextEditingController();
@@ -21,6 +28,45 @@ class HomeScreen extends StatelessWidget {
   var carpowercontroller = TextEditingController();
   var peoplecontroller = TextEditingController();
   var bagscontroller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    fetchCarDetails();
+  }
+
+  Future<void> updateCarAvailability(String carId, bool newStatus) async {
+    try {
+      await myApi.updateCar({'status': newStatus}, carId);
+    } catch (err) {
+      print('Failed to update: $err');
+    }
+  }
+
+  Future<void> fetchCarDetails() async {
+    print(widget.carid);
+    try {
+      final result = await myApi.fetchCarData(widget.carid);
+      setState(() {
+        modelcontroller.text = result!.model;
+        companycontroller.text = result.company;
+        numbercontroller.text = result.number;
+        carTypecontroller.text = result.carType;
+        currentlocationcontroller.text = result.current_location;
+        yearcontroller.text = result.year.toString();
+        pricecontroller.text = result.price.toString();
+        isRotatedcontroller.text = result.isRotated.toString();
+        carRatingcontroller.text = result.carRating.toString();
+        carpowercontroller.text = result.carpower.toString();
+        peoplecontroller.text = result.people;
+        bagscontroller.text = result.bags;
+        imageURLcontroller.text = result.imageURl;
+      });
+    } catch (error) {
+      print('Error fetching car details: $error');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,36 +124,21 @@ class HomeScreen extends StatelessWidget {
                         "avail": true,
                         "status": true
                       };
-                      myApi.addCar(data);
+                      myApi.updateCar(data, widget.carid);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.deepPurple,
                     ),
-                    child: const Text('Add'),
+                    child: const Text('Update'),
                   ),
                   ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => updateCar()),
-                      );
+                    onPressed: () async {
+                      await updateCarAvailability(widget.carid, false);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.deepPurple,
                     ),
-                    child: const Text('Show All'),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => RentCar()),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.deepPurple,
-                    ),
-                    child: const Text('Rent'),
+                    child: const Text('Delete'),
                   ),
                 ],
               ),

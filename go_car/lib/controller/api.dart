@@ -2,6 +2,8 @@
 import 'dart:convert';
 import "package:flutter/foundation.dart";
 import 'package:get/get.dart';
+import 'package:go_car/models/booking.dart';
+import 'package:go_car/models/catalog.dart';
 import 'package:go_car/models/user.dart';
 import 'package:http/http.dart' as http;
 
@@ -97,6 +99,45 @@ class api {
       } else {
         print(
             'Failed to fetch user data with status code: ${response.statusCode}');
+        return null;
+      }
+    } catch (error) {
+      print('Error : $error');
+      return null;
+    }
+  }
+
+  Future<Booking?> fetchbookingData(String bookingID) async {
+    final String getbookingDataURL =
+        "http://localhost:3007/api/bookCar/$bookingID";
+    try {
+      final response = await http.get(Uri.parse(getbookingDataURL));
+      if (response.statusCode == 200) {
+        final responseData = json.decode(response.body);
+        Booking bookingdata = Booking.fromJson(responseData);
+        return bookingdata;
+      } else {
+        print(
+            'Failed to fetch booking data with status code: ${response.statusCode}');
+        return null;
+      }
+    } catch (error) {
+      print('Error : $error');
+      return null;
+    }
+  }
+
+  Future<items?> fetchCarData(String carID) async {
+    final String getcarURL = "http://localhost:3007/api/car/$carID";
+    try {
+      final response = await http.get(Uri.parse(getcarURL));
+      if (response.statusCode == 200) {
+        final responseData = json.decode(response.body);
+        items cardata = items.fromJson(responseData);
+        return cardata;
+      } else {
+        print(
+            'Failed to fetch car data with status code: ${response.statusCode}');
         return null;
       }
     } catch (error) {

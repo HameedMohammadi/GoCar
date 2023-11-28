@@ -79,4 +79,24 @@ class items {
         "avail": avail,
         "status": status
       };
+  factory items.fromJson(Map<String, dynamic> json) {
+    return items(
+        id: json['_id'] as String,
+        model: json["model"] as String,
+        company: json["company"] as String,
+        number: json["number"] as String,
+        carType: json["carType"] as String,
+        current_location: json["current_location"] as String,
+        year: json["year"] as num,
+        color: json["color"] as String,
+        price: json["price"] as num,
+        imageURl: json["imageURl"] as String,
+        isRotated: json["isRotated"] as bool,
+        carRating: json["carRating"] as num,
+        carpower: json["carpower"] as num,
+        people: json["people"] as String,
+        bags: json["bags"] as String,
+        avail: json["avail"] as bool,
+        status: json["status"] as bool);
+  }
 }

@@ -43,10 +43,27 @@ async function BookCar(req,res) {
     res.status(500).json({error : error})
   }
 }  
+
+async function getcarById(req, res) {
+  const{ id } = req.params;
+  try {
+    const cars = await Car.findById(id);
+    
+    if (!cars) {
+      return res.status(404).json({ error: 'Car not found' });
+    }
+
+    res.json(cars);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
   
 module.exports = {
     createCar,
     getAllcars,
     updateAvailabilty,
-    BookCar
+    BookCar,
+    getcarById
 }

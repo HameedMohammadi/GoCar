@@ -1,9 +1,12 @@
 // ignore_for_file: prefer_const_constructors, avoid_web_libraries_in_flutter, unused_import
 
 import 'dart:js';
+import 'package:go_car/screens/catalog_Page.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:go_car/screens/editUser.dart';
 import 'package:go_car/screens/home.dart';
+import 'package:go_car/screens/rentHisory.dart';
 import 'package:go_car/widgets/bottom_nav_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -31,18 +34,35 @@ Widget buildBottomNavBar(
       }
     },
     items: [
-      buildBottomNavItem(UniconsLine.bell, themeData, size, (ctx) {
-        Navigator.push(ctx, MaterialPageRoute(builder: (ctx) => editUser()));
+      buildBottomNavItem(UniconsLine.archive, themeData, size, (ctx) {
+        Navigator.push(
+            ctx, MaterialPageRoute(builder: (ctx) => catalog_page()));
       }, context),
       buildBottomNavItem(UniconsLine.map_marker, themeData, size, (ctx) {
-        Navigator.push(ctx, MaterialPageRoute(builder: (ctx) => editUser()));
+        double latitude = 37.7749;
+        double longitude = -122.4194;
+        openGoogleMaps(latitude, longitude);
       }, context),
       buildBottomNavItem(UniconsLine.user, themeData, size, (ctx) {
-        Navigator.push(ctx, MaterialPageRoute(builder: (ctx) => editUser()));
+        Navigator.pushReplacement(
+            ctx, MaterialPageRoute(builder: (ctx) => editUser()));
       }, context),
       buildBottomNavItem(UniconsLine.apps, themeData, size, (ctx) {
-        Navigator.push(ctx, MaterialPageRoute(builder: (ctx) => editUser()));
+        Navigator.push(ctx, MaterialPageRoute(builder: (ctx) => rentHistory()));
       }, context),
     ],
   );
+}
+
+void openGoogleMaps(double latitude, double longitude) async {
+  const String googleMapsUrl =
+      'https://www.google.com/maps/search/?api=1&query=';
+
+  String url = '$googleMapsUrl$latitude,$longitude';
+
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
 }
